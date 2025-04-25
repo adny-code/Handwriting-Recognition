@@ -28,6 +28,17 @@ def transBmpToTensor(path):
     return trans(image)
 
 
+def createDir(output_dir: str) -> None:
+    if not os.path.exists(output_dir):
+        try:
+            os.makedirs(output_dir)
+            print("创建目录: %s", output_dir)
+        except OSError as e:
+            print("创建目录 %s 失败: %s", output_dir, str(e))
+            raise
+
+
+
 def clear_old_data():
     """
     清除旧数据, 删除rsc目录下的processed和model文件夹中的内容, 但保留文件夹
@@ -112,6 +123,7 @@ def prepare():
     """
     预处理图像, 提取特征值, 并存储到文件中
     """
+    createDir(processed_dir)
     clear_old_data()
     preprocess(origin_dir, processed_dir)
     print(f"origin {origin_dir} processed {processed_dir}")
