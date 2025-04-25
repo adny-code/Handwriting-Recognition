@@ -1,6 +1,5 @@
 import os
 import multiprocessing
-from xtquant import xtdata
 from time import time, ctime, sleep
 from atexit import register
 import sys
