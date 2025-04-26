@@ -7,7 +7,7 @@ from simpleCNN.utils import *
 class DigitCNN(nn.Module):
     def __init__(self):
         super(DigitCNN, self).__init__()
-        self.channelCount = 32
+        self.channelCount = 8
         # 卷积层
         self.conv1 = nn.Conv2d(1, self.channelCount, kernel_size=3, stride=1, padding=1)
         
@@ -100,4 +100,5 @@ def testModel(device, model, testCase):
                 print(f"mistaken num {num} res {index} file {case}")
             testCount += 1
 
-    print(f"trueCount {trueCount} testCount {testCount}")
+    score = trueCount / testCount
+    print(f"trueCount {trueCount} testCount {testCount} score {score}")

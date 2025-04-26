@@ -25,20 +25,18 @@ if __name__ == '__main__':
     print('start at:' + ctime())
     prepare(imgWidth, imgHeight)
 
-    trainCase, testCase = getTestcase(processed_dir, trainRatio)
+    trainCase, testCase = getTestcase(processed_dir, 0.9)
     print(testCase)
+
+    modelPath = os.path.join(modelDir, "simpleCNN.pth")
 
     # 检查是否有可用的 GPU
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     print(f"Using device: {device}")
 
     cnn = DigitCNN()
-    simpleCNN.trainModel(device, cnn, trainCase, trainTarget)
+    cnn.load_state_dict(torch.load(modelPath, map_location=device))
 
     simpleCNN.testModel(device, cnn, testCase)
-
-    modelPath = os.path.join(modelDir, "simpleCNN.pth")
-    torch.save(cnn.state_dict(), modelPath)
-    print(f"save model to {modelPath}")
 
     print("done")
